@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+	<head>
+		<link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
+		<title>Pisca pisca</title>
+	</head>
+	<body>
+		<div class='container pagination-centered'>
+			<div class='hero-unit'>
+				<h1>Pisca pisca!</h1>
+				<p>Escolha uma cor na roda psicodélica!</p>
+				<span id='colorwheel'></span>
+			</div>
+		</div>
+		<script src="{{url_for('static', filename='js/jquery-1.7.2.min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/raphael-2.1.0-min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/colorwheel.js')}}"></script>
+		<script>
+			$(document).ready(function(){
+				var cw = Raphael.colorwheel($('#colorwheel'), 150);
+				cw.color('#00F')
+				cw.onchange(function(color){
+					color = String(color).substring(1);
+					var url = 'flashing_lights/update_color/';
+					url = url.concat(color);
+					console.log(url);
+					$.get(url);
+				})
+			})
+		</script>
+	</body>
+</html>
